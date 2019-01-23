@@ -11,11 +11,11 @@ class _WeatherlyState extends State<Weatherly> {
   Widget build(BuildContext context) {
     // TODO 1: Build AppBar
     return Container();
-    // TODO 2: Create Image Widget for Weather
+    // TODO 3: Create Image Widget for Weather
 
 
 
 
-    // TODO 3: Create TextWidgets for Temperature, Humidity, Max & Min Temps
+    // TODO 4: Create TextWidgets for Temperature, Humidity, Max & Min Temps
   }
 }

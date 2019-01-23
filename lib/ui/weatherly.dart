@@ -12,11 +12,6 @@ class _WeatherlyState extends State<Weatherly> {
       appBar: AppBar(
         title: Text('Weatherly'),
         backgroundColor: Colors.redAccent,
-        actions: <Widget>[
-          new IconButton(
-              icon: new Icon(Icons.menu),
-              onPressed: () => debugPrint('Button Hit'))
-        ],
       ),
       body: Stack(
         children: <Widget>[

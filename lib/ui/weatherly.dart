@@ -6,6 +6,8 @@ class Weatherly extends StatefulWidget {
 }
 
 class _WeatherlyState extends State<Weatherly> {
+  var _changeCityController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,32 +15,47 @@ class _WeatherlyState extends State<Weatherly> {
         title: Text('Weatherly'),
         backgroundColor: Colors.redAccent,
       ),
-      body: Stack(
+      body: ListView(
         children: <Widget>[
-          Center(
-            child: Image.asset(
-              'images/umbrella.png',
-              width: 490.0,
-              height: 1200.0,
-              fit: BoxFit.fill,
-            ),
-          ),
-          Container(
-            alignment: Alignment.topLeft,
-            child: Text(
-              'Orlando',
-              style: TextStyle(color: Colors.white, fontSize: 32.0),
-            ),
-          ),
-          Container(
-            alignment: Alignment.center,
-            child: Text(
-              'Current Temp: 85.0\n'
-                  'Humidity: 81\n'
-                  'Min Temp: 62.0\n'
-                  'Max Temp: 90.0',
-              style: TextStyle(color: Colors.white, fontSize: 22.0),
-            ),
+          Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Orlando',
+                  style: TextStyle(color: Colors.black, fontSize: 32.0),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Current Temp: 85.0\n'
+                      'Humidity: 81\n'
+                      'Min Temp: 62.0\n'
+                      'Max Temp: 90.0',
+                  style: TextStyle(color: Colors.black, fontSize: 22.0),
+                ),
+              ),
+              Padding(
+                padding:
+                const EdgeInsets.only(left: 30.0, right: 30.0, top: 10.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                      hintText: 'Enter City',
+                      hintStyle: TextStyle(color: Colors.black)),
+                  maxLength: 30,
+                  controller: _changeCityController,
+                  keyboardType: TextInputType.text,
+                ),
+              ),
+              RaisedButton(onPressed: () {
+                debugPrint(_changeCityController.text);
+              },
+                textColor: Colors.white,
+                color: Colors.redAccent,
+                child: Text('Get Weather'),
+              )
+            ],
           )
         ],
       ),

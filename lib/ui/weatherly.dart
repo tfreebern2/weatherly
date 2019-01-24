@@ -15,6 +15,7 @@ class _WeatherlyState extends State<Weatherly> {
         title: Text('Weatherly'),
         backgroundColor: Colors.redAccent,
       ),
+      backgroundColor: Colors.white70,
       body: ListView(
         children: <Widget>[
           Column(

@@ -27,26 +27,12 @@ class _WeatherlyState extends State<Weatherly> {
           Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Orlando',
-                  style: TextStyle(color: Colors.black, fontSize: 32.0),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:
-//                updateTempWidget(_changeCityController.text
-                  Text(
-                  'Current Temp: 85.0\n'
-                      'Humidity: 81\n'
-                      'Min Temp: 62.0\n'
-                      'Max Temp: 90.0',
-                    ),
+                padding: const EdgeInsets.all(20.0),
+                child: updateCityWidget(_changeCityController.text),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 10.0),
+                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
                 child: TextField(
                   decoration: InputDecoration(
                       hintText: 'Enter City',
@@ -56,12 +42,17 @@ class _WeatherlyState extends State<Weatherly> {
                   keyboardType: TextInputType.text,
                 ),
               ),
-              RaisedButton(
-                onPressed: () =>
-                    (getWeather(util.appId, _changeCityController.text)),
-                textColor: Colors.white,
-                color: Colors.redAccent,
-                child: Text('Get Weather'),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RaisedButton(
+                  onPressed: () {
+                    getWeather(util.appId, _changeCityController.text);
+                    setState(() {});
+                  },
+                  textColor: Colors.white,
+                  color: Colors.redAccent,
+                  child: Text('Get Weather'),
+                ),
               )
             ],
           )
@@ -76,47 +67,44 @@ class _WeatherlyState extends State<Weatherly> {
         '${util.appId}&units=imperial';
 
     http.Response response = await http.get(apiUrl);
-    print(json.decode(response.body));
+//    print(json.decode(response.body));
     return json.decode(response.body);
   }
 
-  Widget updateTempWidget(String city) {
+  Widget updateCityWidget(String city) {
     return FutureBuilder(
-        future: getWeather(util.appId, city == null ? util.defaultCity : city),
-        builder: (BuildContext context, AsyncSnapshot<Map> snapshot) {
-          //where we get all of the json data, we setup widgets etc.
-          if (snapshot.hasData) {
-            Map content = snapshot.data;
-            return Container(
-              margin: const EdgeInsets.fromLTRB(30.0, 250.0, 0.0, 0.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  ListTile(
-                    title: Text(
-                      content['main']['temp'].toString() + " F",
-                      style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 49.9,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    subtitle: ListTile(
-                      title: Text(
-                        "Current: ${content['main']['temp'].toString()} F\n"
-                            "Humidity: ${content['main']['humidity'].toString()}\n"
-                            "Min: ${content['main']['temp_min'].toString()} F\n"
-                            "Max: ${content['main']['temp_max'].toString()} F ",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  )
-                ],
+      future: getWeather(util.appId, city == '' ? util.defaultCity : city),
+      builder: (BuildContext context, AsyncSnapshot<Map> snapshot) {
+        if (snapshot.hasData) {
+          Map content = snapshot.data;
+          return Column(
+            children: <Widget>[
+              Text('${content['name']}',
+                  style: TextStyle(color: Colors.black, fontSize: 32.0)),
+              Text(
+                content['main']['temp'].toString() + " F",
+                style: TextStyle(
+                    fontStyle: FontStyle.normal,
+                    fontSize: 49.9,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500),
               ),
-            );
-          } else {
-            return Container();
-          }
-        });
+              Text(
+                "Current: ${content['main']['temp'].toString()} F\n"
+                    "Humidity: ${content['main']['humidity'].toString()}\n"
+                    "Min: ${content['main']['temp_min'].toString()} F\n"
+                    "Max: ${content['main']['temp_max'].toString()} F ",
+                style: TextStyle(color: Colors.black),
+              ),
+            ],
+          );
+        } else {
+          return Text(
+            '${util.defaultCity}',
+            style: TextStyle(color: Colors.black, fontSize: 32.0),
+          );
+        }
+      },
+    );
   }
 }

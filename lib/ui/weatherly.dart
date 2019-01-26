@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weatherly/ui/changecity.dart';
-
-import '../util/utils.dart' as util;
 
 class Weatherly extends StatefulWidget {
   @override
@@ -9,19 +6,7 @@ class Weatherly extends StatefulWidget {
 }
 
 class _WeatherlyState extends State<Weatherly> {
-  String _cityEntered;
-
-  Future _goToCityPage(BuildContext context) async {
-    Map results = await Navigator
-        .of(context)
-        .push(MaterialPageRoute<Map>(builder: (BuildContext context) { //change to Map instead of dynamic for this to work
-      return ChangeCity();
-    }));
-
-    if ( results != null && results.containsKey('enter')) {
-      _cityEntered = results['enter'];
-    }
-  }
+  final _changeCityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,20 +14,17 @@ class _WeatherlyState extends State<Weatherly> {
       appBar: AppBar(
         title: Text('Weatherly'),
         backgroundColor: Colors.redAccent,
-        actions: <Widget>[IconButton(icon: Icon(Icons.menu), onPressed: () {
-          _goToCityPage(context);
-        },)],
       ),
       backgroundColor: Colors.white70,
       body: ListView(
         children: <Widget>[
           Column(
             children: <Widget>[
-              // TODO 6: Replace City and Temp Widgets with updateCityWidget()
+              // TODO 6: Replace Orlando and Temp Widgets with updateCityWidget()
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  '${_cityEntered == null ? util.defaultCity : _cityEntered}',
+                  'Orlando',
                   style: TextStyle(color: Colors.black, fontSize: 32.0),
                 ),
               ),
@@ -56,20 +38,42 @@ class _WeatherlyState extends State<Weatherly> {
                   style: TextStyle(color: Colors.black, fontSize: 22.0),
                 ),
               ),
+              Padding(
+                padding:
+                const EdgeInsets.only(left: 30.0, right: 30.0, top: 10.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                      hintText: 'Enter City',
+                      hintStyle: TextStyle(color: Colors.black)),
+                  maxLength: 30,
+                  controller: _changeCityController,
+                  keyboardType: TextInputType.text,
+                ),
+              ),
+              RaisedButton(onPressed: () {
+                debugPrint(_changeCityController.text);
+              },
+                textColor: Colors.white,
+                color: Colors.green,
+                child: Text('Get Weather'),
+              ),
+              RaisedButton(onPressed: () {
+                _changeCityController.clear();
+              },
+                textColor: Colors.white,
+                color: Colors.red,
+                child: Text('Clear'),
+              )
             ],
           )
         ],
       ),
     );
   }
-  // TODO 4: Create getWeather() that returns JSON response body
+// TODO 4: Create getWeather() that returns JSON response body
 
 
-  // TODO 5: Create updateCityWidget() that returns a FutureBuilder
+// TODO 5: Create updateCityWidget() that returns a FutureBuilder
 
 
 }
-
-
-
-

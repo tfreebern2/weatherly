@@ -12,7 +12,8 @@ class Weatherly extends StatefulWidget {
 }
 
 class _WeatherlyState extends State<Weatherly> {
-  var _changeCityController = TextEditingController();
+  final changeCityController = TextEditingController();
+  bool apiCall = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class _WeatherlyState extends State<Weatherly> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: updateCityWidget(_changeCityController.text),
+                child: updateCityWidget(changeCityController.text),
               ),
               Padding(
                 padding:
@@ -38,7 +39,7 @@ class _WeatherlyState extends State<Weatherly> {
                       hintText: 'Enter City',
                       hintStyle: TextStyle(color: Colors.black)),
                   maxLength: 30,
-                  controller: _changeCityController,
+                  controller: changeCityController,
                   keyboardType: TextInputType.text,
                 ),
               ),
@@ -46,8 +47,9 @@ class _WeatherlyState extends State<Weatherly> {
                 padding: const EdgeInsets.all(8.0),
                 child: RaisedButton(
                   onPressed: () {
-                    getWeather(util.appId, _changeCityController.text);
-                    setState(() {});
+                    setState(() {
+                      apiCall = true;
+                    });
                   },
                   textColor: Colors.white,
                   color: Colors.redAccent,
@@ -66,9 +68,10 @@ class _WeatherlyState extends State<Weatherly> {
         'http://api.openweathermap.org/data/2.5/weather?q=$city&appid='
         '${util.appId}&units=imperial';
 
-    http.Response response = await http.get(apiUrl);
-//    print(json.decode(response.body));
-    return json.decode(response.body);
+    if (apiCall = true) {
+      http.Response response = await http.get(apiUrl);
+      return json.decode(response.body);
+    }
   }
 
   Widget updateCityWidget(String city) {
@@ -77,6 +80,7 @@ class _WeatherlyState extends State<Weatherly> {
       builder: (BuildContext context, AsyncSnapshot<Map> snapshot) {
         if (snapshot.hasData) {
           Map content = snapshot.data;
+
           return Column(
             children: <Widget>[
               Text('${content['name']}',
@@ -90,8 +94,7 @@ class _WeatherlyState extends State<Weatherly> {
                     fontWeight: FontWeight.w500),
               ),
               Text(
-                "Current: ${content['main']['temp'].toString()} F\n"
-                    "Humidity: ${content['main']['humidity'].toString()}\n"
+                "Humidity: ${content['main']['humidity'].toString()}\n"
                     "Min: ${content['main']['temp_min'].toString()} F\n"
                     "Max: ${content['main']['temp_max'].toString()} F ",
                 style: TextStyle(color: Colors.black),
@@ -99,10 +102,7 @@ class _WeatherlyState extends State<Weatherly> {
             ],
           );
         } else {
-          return Text(
-            '${util.defaultCity}',
-            style: TextStyle(color: Colors.black, fontSize: 32.0),
-          );
+          return Container();
         }
       },
     );

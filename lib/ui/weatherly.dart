@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:charcode/ascii.dart';
 
 import 'package:flutter/material.dart';
 
@@ -84,7 +83,7 @@ class _WeatherlyState extends State<Weatherly> {
     return FutureBuilder(
       future: getWeather(util.appId, city == '' ? util.defaultCity : city),
       builder: (BuildContext context, AsyncSnapshot<Map> snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.hasData && snapshot.data['cod'].toString() != '404') {
           Map content = snapshot.data;
 
           return Column(
@@ -108,7 +107,12 @@ class _WeatherlyState extends State<Weatherly> {
             ],
           );
         } else {
-          return Container();
+          return Container(
+            child: Text(
+              'City does not exist!',
+              style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.w500),
+            ),
+          );
         }
       },
     );

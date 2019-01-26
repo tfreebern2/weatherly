@@ -12,7 +12,7 @@ class Weatherly extends StatefulWidget {
 }
 
 class _WeatherlyState extends State<Weatherly> {
-  final changeCityController = TextEditingController();
+  final _changeCityController = TextEditingController();
   bool apiCall = false;
 
   @override
@@ -29,7 +29,7 @@ class _WeatherlyState extends State<Weatherly> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: updateCityWidget(changeCityController.text),
+                child: updateCityWidget(_changeCityController.text),
               ),
               Padding(
                 padding:
@@ -39,7 +39,7 @@ class _WeatherlyState extends State<Weatherly> {
                       hintText: 'Enter City',
                       hintStyle: TextStyle(color: Colors.black)),
                   maxLength: 30,
-                  controller: changeCityController,
+                  controller: _changeCityController,
                   keyboardType: TextInputType.text,
                 ),
               ),
@@ -55,7 +55,7 @@ class _WeatherlyState extends State<Weatherly> {
               ),
               RaisedButton(
                 onPressed: () {
-                  changeCityController.clear();
+                  _changeCityController.clear();
                 },
                 textColor: Colors.white,
                 color: Colors.red,

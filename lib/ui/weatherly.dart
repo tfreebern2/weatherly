@@ -6,7 +6,7 @@ class Weatherly extends StatefulWidget {
 }
 
 class _WeatherlyState extends State<Weatherly> {
-  var _changeCityController = TextEditingController();
+  final _changeCityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +20,7 @@ class _WeatherlyState extends State<Weatherly> {
         children: <Widget>[
           Column(
             children: <Widget>[
+              // TODO 6: Replace Orlando and Temp Widgets with updateCityWidget()
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(

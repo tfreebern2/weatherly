@@ -43,18 +43,23 @@ class _WeatherlyState extends State<Weatherly> {
                   keyboardType: TextInputType.text,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    setState(() {
-                      apiCall = true;
-                    });
-                  },
-                  textColor: Colors.white,
-                  color: Colors.redAccent,
-                  child: Text('Get Weather'),
-                ),
+              RaisedButton(
+                onPressed: () {
+                  setState(() {
+                    apiCall = true;
+                  });
+                },
+                textColor: Colors.white,
+                color: Colors.green,
+                child: Text('Get Weather'),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  changeCityController.clear();
+                },
+                textColor: Colors.white,
+                color: Colors.red,
+                child: Text('Clear'),
               )
             ],
           )

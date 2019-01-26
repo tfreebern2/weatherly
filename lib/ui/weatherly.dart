@@ -53,8 +53,15 @@ class _WeatherlyState extends State<Weatherly> {
                 debugPrint(_changeCityController.text);
               },
                 textColor: Colors.white,
-                color: Colors.redAccent,
+                color: Colors.green,
                 child: Text('Get Weather'),
+              ),
+              RaisedButton(onPressed: () {
+                _changeCityController.clear();
+              },
+                textColor: Colors.white,
+                color: Colors.red,
+                child: Text('Clear'),
               )
             ],
           )
@@ -65,7 +72,7 @@ class _WeatherlyState extends State<Weatherly> {
   // TODO 4: Create getWeather() that returns JSON response body
 
 
-  // TODO 5: Create updateWeatherWidget() that returns a FutureBuilder
+  // TODO 5: Create updateCityWidget() that returns a FutureBuilder
 
 
 }

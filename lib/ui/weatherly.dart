@@ -13,7 +13,6 @@ class Weatherly extends StatefulWidget {
 
 class _WeatherlyState extends State<Weatherly> {
   final _changeCityController = TextEditingController();
-  bool apiCall = false;
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +44,7 @@ class _WeatherlyState extends State<Weatherly> {
               ),
               RaisedButton(
                 onPressed: () {
-                  setState(() {
-                    apiCall = true;
-                  });
+                  setState(() {});
                 },
                 textColor: Colors.white,
                 color: Colors.green,
@@ -73,10 +70,8 @@ class _WeatherlyState extends State<Weatherly> {
         'http://api.openweathermap.org/data/2.5/weather?q=$city&appid='
         '${util.appId}&units=imperial';
 
-    if (apiCall = true) {
-      http.Response response = await http.get(apiUrl);
-      return json.decode(response.body);
-    }
+    http.Response response = await http.get(apiUrl);
+    return json.decode(response.body);
   }
 
   Widget updateCityWidget(String city) {

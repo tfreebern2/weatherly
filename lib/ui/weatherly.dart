@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:charcode/ascii.dart';
 
 import 'package:flutter/material.dart';
 
@@ -91,7 +92,7 @@ class _WeatherlyState extends State<Weatherly> {
               Text('${content['name']}',
                   style: TextStyle(color: Colors.black, fontSize: 32.0)),
               Text(
-                content['main']['temp'].toString() + " F",
+                content['main']['temp'].toString() + "\u00B0F",
                 style: TextStyle(
                     fontStyle: FontStyle.normal,
                     fontSize: 49.9,
@@ -99,9 +100,9 @@ class _WeatherlyState extends State<Weatherly> {
                     fontWeight: FontWeight.w500),
               ),
               Text(
-                "Humidity: ${content['main']['humidity'].toString()}\n"
-                    "Min: ${content['main']['temp_min'].toString()} F\n"
-                    "Max: ${content['main']['temp_max'].toString()} F ",
+                "Humidity: ${content['main']['humidity'].toString()}%\n"
+                    "Min: ${content['main']['temp_min'].toString()}\u00B0F\n"
+                    "Max: ${content['main']['temp_max'].toString()}\u00B0F\n",
                 style: TextStyle(color: Colors.black),
               ),
             ],

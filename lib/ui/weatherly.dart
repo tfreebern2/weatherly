@@ -71,6 +71,7 @@ class _WeatherlyState extends State<Weatherly> {
         '${util.appId}&units=imperial';
 
     http.Response response = await http.get(apiUrl);
+    print(json.decode(response.body));
     return json.decode(response.body);
   }
 

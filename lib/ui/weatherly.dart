@@ -13,6 +13,7 @@ class Weatherly extends StatefulWidget {
 
 class _WeatherlyState extends State<Weatherly> {
   final _changeCityController = TextEditingController();
+  var cityName = '';
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class _WeatherlyState extends State<Weatherly> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: updateCityWidget(_changeCityController.text),
+                child: updateCityWidget(cityName),
               ),
               Padding(
                 padding:
@@ -44,7 +45,9 @@ class _WeatherlyState extends State<Weatherly> {
               ),
               RaisedButton(
                 onPressed: () {
-                  setState(() {});
+                  setState(() {
+                    cityName = _changeCityController.text;
+                  });
                 },
                 textColor: Colors.white,
                 color: Colors.green,

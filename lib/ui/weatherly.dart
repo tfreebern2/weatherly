@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import '../util/utils.dart' as util;
 
 class Weatherly extends StatefulWidget {
+  Weatherly({Key key}): super(key: key);
+
   @override
   _WeatherlyState createState() => _WeatherlyState();
 }

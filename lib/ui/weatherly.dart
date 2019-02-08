@@ -11,14 +11,21 @@ class _WeatherlyState extends State<Weatherly> {
   Widget build(BuildContext context) {
     // TODO 1: Build Scaffold, AppBar with Title & BackgroundColor
     return Scaffold();
+
+
     // TODO 2: Create ListView
 
 
     // TODO 3: Create TextWidgets for Temperature, Humidity, Max & Min Temps
 
 
-    // TODO 4: Create TextField Widget and RaisedButton to Enter New City
+    // TODO 4: Create TextField Widget with TextEditingController
 
+
+    // TODO 5: Create RaisedButton to Enter New City
+
+
+    // TODO 6: Create Raised Button to clear TextField
 
   }
 }
